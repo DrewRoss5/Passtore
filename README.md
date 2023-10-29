@@ -1,6 +1,6 @@
 # passtore
 A Minimalist Password manager for Linux<br><br>
-<b>⚠ WARNING: ⚠</b><br> This password manager use AES-256-GCM encryption, however, it was made as a hobby/educational project, so it has not been professionally audited for security. <b>Use with caution!</b>
+<b>⚠ WARNING: ⚠</b><br> This password manager uses AES-256-GCM encryption, however, it was made as a hobby/educational project, so it has not been professionally audited for security. <b>Use with caution!</b>
 
 # Roadmap
 <ul>
