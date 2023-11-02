@@ -72,19 +72,21 @@ class PasswordDatabase:
             raise ValueError('Incorrect Password')
         # decrypt each password 
         for i in encrypted_passwords:
-            ciphertext_salt_name, ciphertext_password = i.split(b'!')
-            # decrypt the password's name and salt
-            salt_name = self.master_cipher.decrypt_and_verify(ciphertext_salt_name)
-            if not salt_name:
-                raise ValueError('Password file is corrupt or the key is invalid')
-            salt = salt_name[:self.SALT_SIZE]
-            name = salt_name[self.SALT_SIZE:]
-            # decrypt the password's content
-            key = SHA256.new(self.master_password.encode()+salt).digest()
-            password = AESCipher(key).decrypt_and_verify(ciphertext_password).decode()
-            if password == None:
-                raise ValueError('Password file is corrupt or the key is invalid')
-            self.passwords[name.decode()] = {'password': password, 'salt': salt}
+            # ensure the password is not an empty line before attempting to decrypt it
+            if i:
+                ciphertext_salt_name, ciphertext_password = i.split(b'!')
+                # decrypt the password's name and salt
+                salt_name = self.master_cipher.decrypt_and_verify(ciphertext_salt_name)
+                if not salt_name:
+                    raise ValueError('Password file is corrupt or the key is invalid')
+                salt = salt_name[:self.SALT_SIZE]
+                name = salt_name[self.SALT_SIZE:]
+                # decrypt the password's content
+                key = SHA256.new(self.master_password.encode()+salt).digest()
+                password = AESCipher(key).decrypt_and_verify(ciphertext_password).decode()
+                if password == None:
+                    raise ValueError('Password file is corrupt or the key is invalid')
+                self.passwords[name.decode()] = {'password': password, 'salt': salt}
             
     # encrypts and saves the file
     def save_file(self):
