@@ -113,12 +113,9 @@ class PasswordList(QWidget):
 
     # deletes the currently selected password
     def delete_password(self):
-        if len(self.password_database.get_site_names()) == 1:
-            self.error_label.setText('There must be at least one password in the database')
-        else:
-            self.password_database.delete_password(self.password_list.currentItem().text())
-            self.mark_unsaved()
-            self.update_password_list()
+        self.password_database.delete_password(self.password_list.currentItem().text())
+        self.mark_unsaved()
+        self.update_password_list()
 
     # saves the password database file
     def save_database(self):
