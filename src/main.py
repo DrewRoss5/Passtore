@@ -11,7 +11,6 @@ from gui.main_window import MainWindow
 PASSTORE_PATH = os.path.join(os.path.expanduser('~'), '.passtore')
 # check if the user has a prefs file, run the initalization for the first password file
 if not os.path.exists(PASSTORE_PATH):
-    # encrypts a plaintext, provided as eith.exists(f'{PASSTORE_PATH}/prefs.json'):
     app = QApplication()
     dialog = FileCreationDialog()
     dialog.show()
