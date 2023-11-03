@@ -30,6 +30,11 @@ else:
     if os.path.exists(last_modified):
         password_file =  show_login_prompt(last_modified)
         if password_file:
+            # update the user preferences if a new file was selected
+            if password_file.file_path != prefs['last_modified']:
+                prefs['last_modified'] = password_file.file_path
+                with open(os.path.join(PASSTORE_PATH, 'prefs.json'), 'w') as p:
+                    json.dump(prefs, p)
             app = QApplication.instance()
             main_window = MainWindow(password_file)
             main_window.show()
