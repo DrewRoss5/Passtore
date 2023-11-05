@@ -8,7 +8,12 @@ from gui.login import show_login_prompt
 from gui.create_file import FileCreationDialog
 from gui.main_window import MainWindow
 
-PASSTORE_PATH = os.path.join(os.path.expanduser('~'), '.passtore')
+# determine the user's OS, and where to store passtore
+if sys.platform == 'win32': 
+    PASSTORE_PATH = os.path.join(os.path.expanduser('~'), 'AppData', 'Local', 'passtore')
+else:
+    PASSTORE_PATH = os.path.join(os.path.expanduser('~'), '.passtore')
+
 # check if the user has a prefs file, run the initalization for the first password file
 if not os.path.exists(PASSTORE_PATH):
     app = QApplication()
