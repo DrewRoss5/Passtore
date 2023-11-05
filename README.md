@@ -1,5 +1,5 @@
 # Passtore
-A Minimalist Password manager for Linux<br><br>
+A Minimalist cross-platform password manager<br><br>
 <b>⚠ WARNING: ⚠</b><br> This password manager uses AES-256-GCM encryption, however, it was made as a hobby/educational project, so it has not been professionally audited for security. <b>Use with caution!</b>
 
 # Roadmap
@@ -9,7 +9,6 @@ A Minimalist Password manager for Linux<br><br>
   <li>Add a password strength checker</li>
   <li>Add more password attributes (usernames, etc.)</li>
   <li>Add support for UI customization</li>
-  <li>Add support for Windows</li>
 </ul>
 
 # Usage
