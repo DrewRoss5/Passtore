@@ -23,8 +23,10 @@ class PasswordList(QWidget):
         self.delete_shortcut.activated.connect(self.delete_password)
         self.save_shortcut = QShortcut(QKeySequence('Ctrl+S'), self)
         self.save_shortcut.activated.connect(self.save_database)
-        self.copy_shortcut = QShortcut(QKeySequence('Ctrl+C'), self)
-        self.copy_shortcut.activated.connect(self.copy_password)
+        self.password_copy_shortcut = QShortcut(QKeySequence('Ctrl+C'), self)
+        self.password_copy_shortcut.activated.connect(self.copy_password)
+        self.username_copy_shortcut = QShortcut(QKeySequence('Ctrl+B'), self)
+        self.username_copy_shortcut.activated.connect(self.copy_username)
         self.copy_shortcut = QShortcut(QKeySequence('Ctrl+Q'), self)
         self.copy_shortcut.activated.connect(self.close_window)
         self.init_ui()
@@ -37,7 +39,7 @@ class PasswordList(QWidget):
         self.database_label = QLabel(self.file_name)
         self.database_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.password_list = QListWidget()
-        self.password_list.insertItems(0, self.password_database.get_site_names())
+        self.password_list.insertItems(0, self.password_database.get_password_names())
         self.password_list.activated.connect(self.copy_password)
         self.password_list.itemClicked.connect(self.enable_buttons)
         self.copy_button = QPushButton('Copy')
@@ -84,25 +86,32 @@ class PasswordList(QWidget):
     def update_password_list(self):
         self.mark_unsaved()
         self.password_list.clear()
-        self.password_list.insertItems(0, self.password_database.get_site_names())
+        self.password_list.insertItems(0, self.password_database.get_password_names())
 
     # copies the currently selected password to the user's clipboard
     def copy_password(self):
         pyperclip.copy(self.password_database.get_password(self.password_list.currentItem().text()))
 
+    # copies the username of the currently selected password to the user's clipboard
+    def copy_username(self):
+        # this uses -1 and index as opposed to just 1 to account for site names with dashes
+        pyperclip.copy(self.password_list.currentItem().text().split('-')[-1].strip())
+
     # opens a dialog that allows the user to edit the currently selected password
     def edit_password(self):
-        site_name = self.password_list.currentItem().text()
+        password_name = self.password_list.currentItem().text()
         if not self.pass_edit_dialog:
-            self.pass_edit_dialog = PasswordEditDialog(self, site_name)
+            self.pass_edit_dialog = PasswordEditDialog(self, password_name)
         else:
+            site_name, username = map(lambda x: x.strip(), password_name.split('-'))
             # redraw the widget for this password
-            self.pass_edit_dialog.site_name = site_name
+            self.pass_edit_dialog.password_name = password_name
             self.pass_edit_dialog.setWindowTitle(f'Editing password for "{site_name}"')
             self.pass_edit_dialog.title_label.setText(f'Editing password for "{site_name}"')
             self.pass_edit_dialog.site_name_entry.setText(site_name)
-            self.pass_edit_dialog.pass_entry.setText(self.password_database.get_password(site_name))
-            self.pass_edit_dialog.confirm_entry.setText(self.password_database.get_password(site_name))
+            self.pass_create_dialog.username_entry.setText(username)
+            self.pass_edit_dialog.pass_entry.setText(self.password_database.get_password(password_name))
+            self.pass_edit_dialog.confirm_entry.setText(self.password_database.get_password(password_name))
         self.pass_edit_dialog.show()
 
     # opens a dialog that allows the user to create a new password
