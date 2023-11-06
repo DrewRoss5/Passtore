@@ -67,7 +67,7 @@ class PasswordEditDialog(QWidget):
             new_name = None
             renamed = False
         # if the password is to be renamed, verify that the name will not overwrite any existing passwords
-        if renamed and new_name in self.parent_widget.password_database.get_site_names():
+        if renamed and new_name in self.parent_widget.password_database.get_password_names():
                 self.error_label.setText(f'A password for the site "{new_name}" already exists')
                 return 
         # verify that the password matches the confirmation
