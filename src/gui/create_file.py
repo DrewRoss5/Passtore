@@ -71,7 +71,7 @@ class FileCreationDialog(QWidget):
             self.error_label.setText('Password must be at least 8 Characters long')
             return
         # ensure the password contains uppercase letters, lowercase letters, numbers and special charachters 
-        for i in (r'[a-z]', r'[A-z]', r'[\d]', r'[!@#$%^&*(),.?\":{}|<>]'):
+        for i in (r'[a-z]', r'[A-Z]', r'[\d]', r'[!@#$%^&*(),.?\":{}|<>]'):
             if not re.search(i, password):
                 print(i)
                 QErrorMessage(self).showMessage('Your password must have at least one of each of the following:\nUppercase Letters\nLowercase Letters\nNumbers\nSpecial Characters')
