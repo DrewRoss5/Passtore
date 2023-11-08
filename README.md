@@ -6,7 +6,6 @@ A Minimalist cross-platform password manager<br><br>
 <ul>
   <li>Finish documentation</li>
   <li>Create an installer</li>
-  <li>Add a password strength checker</li>
   <li>Add support for UI customization</li>
 </ul>
 
