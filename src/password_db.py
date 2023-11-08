@@ -1,4 +1,5 @@
 import os
+import re
 import json 
 import bcrypt
 import base64
@@ -108,3 +109,20 @@ class PasswordDatabase:
         with open(self.file_path, 'wb') as f:
             f.write(b'\n'.join((key_hash, b'\n'.join(self.encrypted_passwords))))
          
+    # creates a numeric grade for passwords, with 0-20 being poor, 20-29 being acceptable and 30+ being good 
+    @classmethod
+    def grade_password(self, password: str):
+        # create a "modifier" for the password to be multiplied by, based on if it has uppercase letters, lowercase letters, numbers, and special symbols
+        multiplier = 0
+        for i in (r'[a-z]', r'[A-z]', r'[\d]', r'[!@#$%^&*()-=`~,.?\":{}|<>]'):
+            if re.search(i, password):
+                multiplier += 0.5
+        # get the number of non repeating characters in the password
+        char_count = 0
+        previous_char = ''
+        for i in password: 
+            if i != previous_char:
+                char_count += 1
+            previous_char = i
+        # get the final score by weighting the number of non_repeating characters by the multiplier
+        return round(char_count * multiplier)
