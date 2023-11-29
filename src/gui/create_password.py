@@ -80,10 +80,6 @@ class PasswordCreationDialog(QWidget):
         password = self.pass_entry.text()
         username = self.username_entry.text()
         password_key = f'{site_name} - {username}'
-        # verify that the password matches the confirmation
-        if password != self.confirm_entry.text():
-            self.error_label.setText('The password and confirmation must match')
-            return 
         # ensure that the site name for the password is unused
         if f'{site_name} - {username}' in self.parent_widget.password_database.get_password_names():
             self.error_label.setText(f'A password for that username and site combination already exists in this database')
