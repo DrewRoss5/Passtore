@@ -28,8 +28,10 @@ class FileCreationDialog(QWidget):
         self.confirm_label = QLabel('Confirm:')
         self.pass_entry = QLineEdit()
         self.pass_entry.setEchoMode(QLineEdit.EchoMode.Password)
+        self.pass_entry.textChanged.connect(self.update_password)
         self.confirm_entry = QLineEdit()
         self.confirm_entry.setEchoMode(QLineEdit.EchoMode.Password)
+        self.confirm_entry.textChanged.connect(self.update_password)
         self.accept_button = QPushButton('Accept')
         self.accept_button.clicked.connect(self.create_file)
         # this label is only given text if the user provides invalid input
@@ -88,5 +90,12 @@ class FileCreationDialog(QWidget):
         except PermissionError:
             self.error_label.setText('Invalid directory')
 
-
+    def update_password(self):
+        # ensure the password and confirmation match
+        if (self.pass_entry.text() != self.confirm_entry.text()):
+            self.error_label.setText('Password and Confirmation must match')
+            self.accept_button.setEnabled(False)
+        else:
+            self.error_label.setText('')
+            self.accept_button.setEnabled(True)
 
