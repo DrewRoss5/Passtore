@@ -66,8 +66,6 @@ class FileCreationDialog(QWidget):
         # verify that password and confirmation match
         password = self.pass_entry.text()
         confirmation = self.confirm_entry.text()
-        if password != confirmation:
-            self.error_label.setText('Password and confirmation do not match')
         # check password length
         if len(password) < 8:
             self.error_label.setText('Password must be at least 8 Characters long')
