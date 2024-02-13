@@ -1,7 +1,7 @@
 # Passtore
 A Minimalist cross-platform password manager<br><br>
 <b>⚠ WARNING: ⚠</b><br> This password manager uses AES-256-GCM encryption, however, it was made as a hobby/educational project, so it has not been professionally audited for security. <b>Use with caution!</b><br>
-Additionally this repository is no longer being maintained, so no security updates will be pushed. If any
+Additionally this repository is no longer being maintained, so no security updates will be pushed.
 # Usage
 ### Initial Run:
 When first using Passtore, you will be greeted with the following screen: <br>
