@@ -1,14 +1,7 @@
 # Passtore
 A Minimalist cross-platform password manager<br><br>
-<b>⚠ WARNING: ⚠</b><br> This password manager uses AES-256-GCM encryption, however, it was made as a hobby/educational project, so it has not been professionally audited for security. <b>Use with caution!</b>
-
-# Roadmap
-<ul>
-  <li>Finish documentation</li>
-  <li>Create an installer</li>
-  <li>Add support for UI customization</li>
-</ul>
-
+<b>⚠ WARNING: ⚠</b><br> This password manager uses AES-256-GCM encryption, however, it was made as a hobby/educational project, so it has not been professionally audited for security. <b>Use with caution!</b><br>
+Additionally this repository is no longer being maintained, so no security updates will be pushed. If any
 # Usage
 ### Initial Run:
 When first using Passtore, you will be greeted with the following screen: <br>
@@ -36,8 +29,6 @@ Password database files are used to store and decrypt your passwords. Each passw
 The first line of .pwdb file is bcrypt hash of the master key, this used for password validation purposes when attempting to decrypt the database. Every additional line consists of the auth tag, nonce, and ciphertext, seperarated by a colon, of the password's site name, username salt, and content. The name, username, and salt are encrypted together with the master key, and the passwords themselves each have a unique key that's a hash of the master password with their unique salts. 
 
  # Contributing
-Outside contributions are not being accepted at this time, however, they may be accepted once the project is more mature. 
-
-
-
+This project is no longer being maintained and as such is not accepting contributions.<br>
+If any you discover any <strong>major</strong> vulnerabilites, please send them to drew.ottesen@protonmail.com or feel free to create a fork of this repo in order to fix them.
 
